@@ -17,3 +17,6 @@ Route::get('/', function () {
 
 
 Route::get('/login/{login}/{pwd}', 'UserController@login');
+Route::get('/signup/{mail}/{username}/{pwd}', 'UserController@signup');
+Route::get('/addMusic/{id_user}/{url}/{indice}', 'MusicController@addMusic');
+Route::get('/getPlaylist/{id_user}', 'MusicController@getPlaylist');

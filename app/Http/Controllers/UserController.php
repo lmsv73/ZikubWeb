@@ -3,17 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function login($login, $pwd)
     {
         $user = User::where([
-            ['email', '=', $login],
-            ['password', '=', $pwd]
+            ['name', $login],
+            ['password', $pwd]
         ])->first();
 
         return response()->json(['success' => $user != null]);
+    }
+
+    public function signup($mail, $username, $password)
+    {
+        $username = User::where('name', $username)->get();
+        $email = User::Where('email', $mail)->get();
+
+        if(!$username->count() && !$email->count()) {
+            $user = new User();
+            $user->name = $username;
+            $user->email = $mail;
+            $user->password = $password;
+
+            $user->save();
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'existLogin' => $username->count() > 0,
+                'existMail' => $email->count() > 0
+            ]);
+        }
     }
 }
