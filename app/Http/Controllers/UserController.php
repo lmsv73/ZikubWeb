@@ -18,10 +18,10 @@ class UserController extends Controller
 
     public function signup($mail, $username, $password)
     {
-        $username = User::where('name', $username)->get();
+        $_user = User::where('name', $username)->get();
         $email = User::Where('email', $mail)->get();
 
-        if(!$username->count() && !$email->count()) {
+        if(!$_user->count() && !$email->count()) {
             $user = new User();
             $user->name = $username;
             $user->email = $mail;
@@ -33,7 +33,7 @@ class UserController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'existLogin' => $username->count() > 0,
+                'existLogin' => $_user->count() > 0,
                 'existMail' => $email->count() > 0
             ]);
         }
