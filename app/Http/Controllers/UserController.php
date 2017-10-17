@@ -13,7 +13,10 @@ class UserController extends Controller
             ['password', $pwd]
         ])->first();
 
-        return response()->json(['success' => $user != null]);
+        if($user != null)
+            return response()->json(['success' => true, 'id_user' => $user->id]);
+        else
+            return response()->json(['success' => false]);
     }
 
     public function signup($mail, $username, $password)
@@ -29,7 +32,9 @@ class UserController extends Controller
 
             $user->save();
 
-            return response()->json(['success' => true]);
+            $max_id = User::max('id');
+
+            return response()->json(['success' => true, 'id_user' => $max_id]);
         } else {
             return response()->json([
                 'success' => false,
