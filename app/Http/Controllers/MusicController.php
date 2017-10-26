@@ -13,7 +13,7 @@ class MusicController extends Controller
                 ['indice', $indice]
             ])->first();
 
-        if($musicByIndice->count()) {
+        if($musicByIndice != null) {
             $musicByIndice->url = $url;
             $musicByIndice->save();
         } else {
