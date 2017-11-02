@@ -35,7 +35,7 @@ class MusicController extends Controller
             ->where('users.id', $id_user)
             ->get();
 
-        return response()->json(['playlist' => $musics]);
+        return response()->json($musics);
     }
 }
 
